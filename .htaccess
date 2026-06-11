@@ -1,0 +1,22 @@
+# MateriApp - Sistema de Gestión de Solicitudes y Control de Materiales
+# .htaccess en la RAÍZ - Redirige todo al index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /materiapp/
+    
+    # Si el archivo existe (css, js, img), servirlo
+    RewriteCond %{REQUEST_URI} ^/materiapp/(css|js|img)/
+    RewriteCond %{DOCUMENT_ROOT}/materiapp/$1 -f
+    RewriteRule ^ - [L]
+    
+    # Si el archivo/directorio existe, servirlo
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # De lo contrario, redirigir al index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Prevenir listado de directorios
+Options -Indexes
